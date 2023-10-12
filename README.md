@@ -279,6 +279,9 @@ export default {
 </script>
 ```
 
+This is how it will look like:
+![Image of the login page with inputs for email and password and buttons for registrering and login](https://github.com/evelinabe/nuxt-ideas-tracker-tutorial/blob/main/public/idea-tracker-3.png)
+
 ## User section on home page
 
 Finally, we will can modify the `src/pages/index.vue` to show a section for logged in users only:
@@ -542,6 +545,8 @@ li {
 ```
 
 The first section will now show a form for adding ideas if the user is logged in. The main section shows the 10 newest ideas from the Appwrite database.
+
+![Image of the page with form to submit new idea, list of ideas, and button for logged in user to remove items](https://github.com/evelinabe/nuxt-ideas-tracker-tutorial/blob/main/public/idea-tracker-5.png)
 
 # Test your project
 
