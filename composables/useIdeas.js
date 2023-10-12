@@ -2,8 +2,8 @@ import { ID, Query } from "appwrite";
 import { database } from "~/appwrite";
 import { ref } from "vue";
 
-const IDEAS_DATABASE_ID = "REPLACE_WITH_DATABASE_ID"; //Replace with your databaseId
-const IDEAS_COLLECTION_ID = "REPACE_WITH_COLLECTION_ID"; //Replace with collectionId
+const IDEAS_DATABASE_ID = "ideas-tracker";
+const IDEAS_COLLECTION_ID = "ideas";
 
 const current = ref(null);
 export const useIdeas = () => {

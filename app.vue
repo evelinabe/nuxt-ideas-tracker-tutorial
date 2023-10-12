@@ -4,7 +4,6 @@
       <nav>
         <h3>Idea Tracker</h3>
         <div>
-          <NuxtLink href="/tutorial/" class="link-btn">Tutorial</NuxtLink>
           <div v-if="user.isLoggedIn.value === true">
             <span>{{ user.current.value.providerUid }}</span>
             <button class="link-btn" type="button" @click="user.logout()">
