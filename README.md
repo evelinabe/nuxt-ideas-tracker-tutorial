@@ -3,6 +3,8 @@
 **Idea tracker**: an app to track all the side project ideas that you'll start, but probably never finish.
 In this tutorial, you will build Idea tracker with Appwrite and Nuxt.
 
+![Image of the finished project with navbar and list of items](https://github.com/evelinabe/nuxt-ideas-tracker-tutorial/blob/main/public/idea-tracker-1.png)
+
 # Concepts
 
 This tutorial will introduce the following concepts:
@@ -146,36 +148,16 @@ Go to `app.vue`, remove `NuxtWelcome`and insert `NuxtPage` wrapped in `NuxtLayou
 
 Head to the [Appwrite Console](https://cloud.appwrite.io/console).
 
-{% only_dark %}
-![Create project screen](/images/docs/quick-starts/dark/create-project.png)
-{% /only_dark %}
-{% only_light %}
-![Create project screen](/images/docs/quick-starts/create-project.png)
-{% /only_light %}
-
 If this is your first time using Appwrite, create an account and create your first project.
 
 Then, under **Add a platform**, add a **Web app**. The **Hostname** should be localhost.
 
-{% only_dark %}
-![Add a platform](/images/docs/quick-starts/dark/add-platform.png)
-{% /only_dark %}
-{% only_light %}
-![Add a platform](/images/docs/quick-starts/add-platform.png)
-{% /only_light %}
-
 You can skip optional steps.
 
-# Initialize Appwrite SDK {% #init-sdk %}
+# Initialize Appwrite SDK
 
 To use Appwrite in our Nuxt app, we'll need to find our project ID. Find your project's ID in the **Settings** page.
 
-{% only_dark %}
-![Project settings screen](/images/docs/quick-starts/dark/project-id.png)
-{% /only_dark %}
-{% only_light %}
-![Project settings screen](/images/docs/quick-starts/project-id.png)
-{% /only_light %}
 Create a new file `src/appwrite.js` to hold our Appwrite related code.
 Only one instance of the `Client()` class should be created per app.
 Add the following code to it, replacing `<YOUR_PROJECT_ID>` with your project ID.
