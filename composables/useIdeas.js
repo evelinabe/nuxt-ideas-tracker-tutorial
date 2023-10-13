@@ -1,16 +1,18 @@
 import { ID, Query } from "appwrite";
 import { database } from "~/appwrite";
 import { ref } from "vue";
+import { useRuntimeConfig } from "nuxt/app";
 
 const IDEAS_DATABASE_ID = "ideas-tracker";
 const IDEAS_COLLECTION_ID = "ideas";
 
 const current = ref(null);
 export const useIdeas = () => {
+  const config = useRuntimeConfig();
   const init = async () => {
     const response = await database.listDocuments(
-      IDEAS_DATABASE_ID,
-      IDEAS_COLLECTION_ID,
+      config.public.databaseId,
+      config.public.databaseCollectionId,
       [Query.orderDesc("$createdAt"), Query.limit(10)]
     );
     current.value = response.documents;

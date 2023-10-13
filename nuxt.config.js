@@ -12,4 +12,10 @@ export default defineNuxtConfig({
     },
   },
   devtools: { enabled: true },
+  runtimeConfig: {
+    public: {
+      databaseId: process.env.NUXT_IDEAS_DATABASE_ID,
+      databaseCollectionId: process.env.NUXT_IDEAS_COLLECTION_ID,
+    },
+  },
 });

@@ -436,11 +436,10 @@ Overwrite the contents of `src/pages/index.vue` with the following:
 
 ```vue
 <template>
-  <div>
-    <section v-if="user.isLoggedIn.value === true" class="u-margin-32">
-      <article class="box">
+  <div class="u-max-width-650" style="margin: 0 auto">
+    <section v-if="user.isLoggedIn.value === true" class="card u-margin-32">
+      <article class="container padding-0">
         <h4 class="heading-level-4">Submit Idea</h4>
-
         <form @submit.prevent="handleAddIdea" class="u-margin-block-start-16">
           <ul class="form-list">
             <li class="form-item">
@@ -465,12 +464,18 @@ Overwrite the contents of `src/pages/index.vue` with the following:
         </form>
       </article>
     </section>
-    <section v-else><p>Please login to submit an idea.</p></section>
+    <section v-else class="card u-margin-32">
+      <div class="container">
+        <p class="body-text-1" style="width: 100%">
+          Please login to submit an idea.
+        </p>
+      </div>
+    </section>
 
     <section class="u-margin-32">
       <article class="card">
         <h4 class="heading-level-4">Latest Ideas</h4>
-        <ul>
+        <ul class="u-margin-block-start-8">
           <li v-for="idea in ideas.current.value">
             <div class="box">
               <h5 class="heading-level-6">{{ idea.title }}</h5>
@@ -523,8 +528,6 @@ export default {
         addIdeaData.description.value = "";
       }
     };
-
-    console.log(addIdeaData.description);
 
     const handleRemoveIdea = async (id) => {
       await ideas.remove(id);
