@@ -81,53 +81,6 @@ export default {
   layout: "default",
 };
 </script>
-
-<style>
-body {
-  margin: 1rem auto;
-  max-width: 50rem;
-  background-color: #f4f5f7;
-}
-
-button {
-  width: fit-content;
-  border: none;
-  border-radius: 3px;
-  padding: 0.25rem 0.5rem;
-  margin-right: 0.25rem;
-  background-color: #e3356d;
-  color: #fff;
-  text-decoration: none;
-}
-
-.link-btn {
-  padding: 0.75rem 1rem;
-  border-radius: 3px;
-  background-color: #e3356d;
-  color: #fff;
-  text-decoration: none;
-  font-weight: 500;
-}
-
-form {
-  max-width: 400px;
-  padding: 1.5rem;
-  display: grid;
-  gap: 0.25rem;
-}
-
-h1 {
-  padding: 0.75rem;
-}
-
-section {
-  padding: 0.75rem;
-  margin-bottom: 1.5rem;
-  background-color: #fff;
-  border-radius: 15px;
-  border: 1px solid #e6e8eb;
-}
-</style>
 ```
 
 ### 3. Edit app
@@ -142,6 +95,28 @@ Go to `app.vue`, remove `NuxtWelcome`and insert `NuxtPage` wrapped in `NuxtLayou
     </NuxtLayout>
   </div>
 </template>
+```
+
+### 4. ### 4. Import layout
+
+Edit `nuxt.config.ts`to import Appwrite's design system to all pages and components.
+The classes will be ready to use in the templates through auto-import.
+
+```ts
+export default defineNuxtConfig({
+  app: {
+    head: {
+      link: [
+        { rel: "stylesheet", href: "https://unpkg.com/@appwrite.io/pink" },
+        {
+          rel: "stylesheet",
+          href: "https://unpkg.com/@appwrite.io/pink-icons",
+        },
+      ],
+    },
+  },
+  devtools: { enabled: true },
+});
 ```
 
 ## Import and configure Appwrite Cloud
@@ -228,25 +203,58 @@ Create a new file `src/pages/index.vue` and add the following code.
 
 ```vue
 <template>
-  <div>
-    <h2>Login/Register</h2>
-    <form @submit.prevent="handleLogin || handleRegistration">
-      <input
-        v-model="userData.email"
-        type="email"
-        placeholder="Email"
-        required
-      />
-      <input
-        v-model="userData.password"
-        type="password"
-        placeholder="Password"
-        required
-      />
-      <div>
-        <button @click="handleLogin">Login</button>
-        <button @click="handleRegistration">Register</button>
-      </div>
+  <div class="card u-margin-32">
+    <h2 class="eyebrow-heading-2">Login/Register</h2>
+    <form
+      class="form u-width-full-line u-max-width-500 u-margin-block-start-16"
+      @submit.prevent="handleLogin || handleRegistration"
+    >
+      <ul class="form-list">
+        <li class="form-item">
+          <label class="label">Email</label>
+          <div class="input-text-wrapper">
+            <input
+              v-model="userData.email"
+              type="email"
+              class="input-text"
+              placeholder="Email"
+              required
+            />
+          </div>
+        </li>
+        <li class="form-item">
+          <label class="label">Password</label>
+          <div class="input-text-wrapper">
+            <input
+              v-model="userData.password"
+              type="password"
+              class="input-text"
+              placeholder="Password"
+              required
+            />
+          </div>
+        </li>
+      </ul>
+      <ul class="buttons-list u-margin-block-start-16">
+        <li class="buttons-list-item">
+          <button
+            class="button is-small u-margin-inline-start-4"
+            aria-label="Login"
+            @click="handleLogin"
+          >
+            Login
+          </button>
+        </li>
+        <li class="buttons-list-item">
+          <button
+            class="button is-small is-secondary u-margin-inline-start-4"
+            aria-label="Register account"
+            @click="handleRegistration"
+          >
+            Register
+          </button>
+        </li>
+      </ul>
     </form>
   </div>
 </template>
@@ -278,9 +286,6 @@ export default {
 };
 </script>
 ```
-
-This is how it will look like:
-![Image of the login page with inputs for email and password and buttons for registrering and login](https://github.com/evelinabe/nuxt-ideas-tracker-tutorial/blob/main/public/idea-tracker-3.png)
 
 ## User section on home page
 
@@ -324,17 +329,22 @@ Update the `app.vue` file:
 <template>
   <div>
     <NuxtLayout>
-      <nav>
-        <h3>Idea Tracker</h3>
-        <div>
-          <div v-if="user.isLoggedIn.value === true">
-            <span>{{ user.current.value.providerUid }}</span>
-            <button class="link-btn" type="button" @click="user.logout()">
-              Logout
-            </button>
-          </div>
-          <NuxtLink v-else href="/login" class="link-btn">Login</NuxtLink>
+      <nav class="main-header u-padding-inline-end-0">
+        <h3 class="u-stretch eyebrow-heading-1">Idea Tracker</h3>
+        <div
+          class="main-header-end u-margin-inline-end-16"
+          v-if="user.isLoggedIn.value === true"
+        >
+          <p>
+            {{ user.current.value.providerUid }}
+          </p>
+          <button class="button" type="button" @click="user.logout()">
+            Logout
+          </button>
         </div>
+        <NuxtLink v-else href="/login" class="button u-margin-inline-end-16"
+          >Login</NuxtLink
+        >
       </nav>
       <NuxtPage />
     </NuxtLayout>
@@ -352,23 +362,6 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-nav {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 1rem;
-}
-h3 {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "Open Sans",
-    "Helvetica Neue", sans-serif;
-  font-weight: 400;
-}
-span {
-  margin-right: 0.25rem;
-}
-</style>
 ```
 
 # Step 4: Databases and collections
@@ -444,39 +437,64 @@ Overwrite the contents of `src/pages/index.vue` with the following:
 ```vue
 <template>
   <div>
-    <section v-if="user.isLoggedIn.value === true">
-      <h2>Submit Idea</h2>
+    <section v-if="user.isLoggedIn.value === true" class="u-margin-32">
+      <article class="box">
+        <h4 class="heading-level-4">Submit Idea</h4>
 
-      <form>
-        <input type="text" placeholder="Title" v-model="addIdeaData.title" />
-        <textarea
-          placeholder="Description"
-          v-model="addIdeaData.description"
-        ></textarea>
-        <button type="button" @click="handleAddIdea">Submit</button>
-      </form>
+        <form @submit.prevent="handleAddIdea" class="u-margin-block-start-16">
+          <ul class="form-list">
+            <li class="form-item">
+              <label class="label">Title</label>
+              <input
+                type="text"
+                placeholder="Title"
+                v-model="addIdeaData.title.value"
+              />
+            </li>
+            <li class="form-item">
+              <label class="label">Email</label>
+              <textarea
+                placeholder="Description"
+                v-model="addIdeaData.description.value"
+              />
+            </li>
+            <button class="button" aria-label="Submit idea" type="submit">
+              Submit
+            </button>
+          </ul>
+        </form>
+      </article>
     </section>
     <section v-else><p>Please login to submit an idea.</p></section>
 
-    <section>
-      <h2>Latest Ideas</h2>
-      <ul>
-        <li v-for="idea in ideas.current.value">
-          <article>
-            <strong>{{ idea.title }}</strong>
-            <p>{{ idea.description }}</p>
-            <button
-              v-if="
-                user.current.value && idea.userId === user.current.value.userId
-              "
-              type="button"
-              @click="handleRemoveIdea(idea.$id)"
-            >
-              Remove
-            </button>
-          </article>
-        </li>
-      </ul>
+    <section class="u-margin-32">
+      <article class="card">
+        <h4 class="heading-level-4">Latest Ideas</h4>
+        <ul>
+          <li v-for="idea in ideas.current.value">
+            <div class="box">
+              <h5 class="heading-level-6">{{ idea.title }}</h5>
+              <p class="body-text-2">{{ idea.description }}</p>
+              <div
+                class="u-position-absolute u-inset-inline-end-8 u-inset-block-start-8"
+              >
+                <button
+                  class="button is-small is-text is-only-icon"
+                  aria-label="Remove item"
+                  v-if="
+                    user.current.value &&
+                    idea.userId === user.current.value.userId
+                  "
+                  type="button"
+                  @click="handleRemoveIdea(idea.$id)"
+                >
+                  <span class="icon-document-remove" aria-hidden="true" />
+                </button>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </article>
     </section>
   </div>
 </template>
@@ -493,15 +511,20 @@ export default {
 
     const addIdeaData = {
       userId: user.current.value !== null ? user.current.value.userId : "",
-      title: "",
-      description: "",
+      title: ref(""),
+      description: ref(""),
     };
 
     const handleAddIdea = async () => {
-      await ideas.add(addIdeaData);
-      addIdeaData.title = "";
-      addIdeaData.description = "";
+      if (!addIdeaData.title.length) return;
+      else {
+        await ideas.add(addIdeaData);
+        addIdeaData.title.value = "";
+        addIdeaData.description.value = "";
+      }
     };
+
+    console.log(addIdeaData.description);
 
     const handleRemoveIdea = async (id) => {
       await ideas.remove(id);
@@ -518,35 +541,14 @@ export default {
 };
 </script>
 
-<style scoped>
-ul {
-  list-style: none;
-  padding: 0;
-}
-
-h2 {
-  padding-left: 1.5rem;
-}
-
-article {
-  display: flex;
-  flex-direction: column;
-  margin: 0 0.75rem;
-}
-
-li {
-  margin: 0 1.75rem;
-  border-radius: 0.1rem;
-  background-color: #f4f5f7;
-  border: 1px solid #e6e8eb;
-  padding: 1rem;
+<style>
+article.box {
+  background-color: hsl(var(--color-neutral-0));
 }
 </style>
 ```
 
 The first section will now show a form for adding ideas if the user is logged in. The main section shows the 10 newest ideas from the Appwrite database.
-
-![Image of the page with form to submit new idea, list of ideas, and button for logged in user to remove items](https://github.com/evelinabe/nuxt-ideas-tracker-tutorial/blob/main/public/idea-tracker-5.png)
 
 # Test your project
 

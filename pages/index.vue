@@ -4,20 +4,27 @@
       <article class="box">
         <h4 class="heading-level-4">Submit Idea</h4>
 
-        <form>
-          <input type="text" placeholder="Title" v-model="addIdeaData.title" />
-          <textarea
-            placeholder="Description"
-            v-model="addIdeaData.description"
-          ></textarea>
-          <button
-            class="button"
-            aria-label="Submit idea"
-            type="button"
-            @click="handleAddIdea"
-          >
-            Submit
-          </button>
+        <form @submit.prevent="handleAddIdea" class="u-margin-block-start-16">
+          <ul class="form-list">
+            <li class="form-item">
+              <label class="label">Title</label>
+              <input
+                type="text"
+                placeholder="Title"
+                v-model="addIdeaData.title.value"
+              />
+            </li>
+            <li class="form-item">
+              <label class="label">Email</label>
+              <textarea
+                placeholder="Description"
+                v-model="addIdeaData.description.value"
+              />
+            </li>
+            <button class="button" aria-label="Submit idea" type="submit">
+              Submit
+            </button>
+          </ul>
         </form>
       </article>
     </section>
@@ -67,15 +74,20 @@ export default {
 
     const addIdeaData = {
       userId: user.current.value !== null ? user.current.value.userId : "",
-      title: "",
-      description: "",
+      title: ref(""),
+      description: ref(""),
     };
 
     const handleAddIdea = async () => {
-      await ideas.add(addIdeaData);
-      addIdeaData.title = "";
-      addIdeaData.description = "";
+      if (!addIdeaData.title.length) return;
+      else {
+        await ideas.add(addIdeaData);
+        addIdeaData.title.value = "";
+        addIdeaData.description.value = "";
+      }
     };
+
+    console.log(addIdeaData.description);
 
     const handleRemoveIdea = async (id) => {
       await ideas.remove(id);
