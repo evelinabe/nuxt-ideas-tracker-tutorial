@@ -12,6 +12,20 @@ export default defineNuxtConfig({
     },
   },
   devtools: { enabled: true },
+  modules: [
+    '@nuxt/content'
+  ],
+  content: {
+    documentDriven: true,
+    highlight: {
+      theme: 'github-dark'
+    },
+    markdown: {
+      rehypePlugins: [
+        ['rehype-class-names', { 'h1': 'heading-level-4', 'line': 'grid-code-line-number' }],
+      ],
+    }
+  },
   runtimeConfig: {
     public: {
       databaseId: process.env.NUXT_IDEAS_DATABASE_ID,
