@@ -1,36 +1,6 @@
 <template>
   <div>
-    <NuxtLayout>
-      <nav class="main-header u-padding-inline-end-0">
-        <h3 class="u-stretch eyebrow-heading-1">Idea Tracker</h3>
-        <div
-          class="main-header-end u-margin-inline-end-16"
-          v-if="user.isLoggedIn.value === true"
-        >
-          <p>
-            {{ user.current.value.providerUid }}
-          </p>
-          <button class="button" type="button" @click="user.logout()">
-            Logout
-          </button>
-        </div>
-        <NuxtLink v-else href="/login" class="button u-margin-inline-end-16"
-          >Login</NuxtLink
-        >
-      </nav>
-      <NuxtPage />
-    </NuxtLayout>
+    <Navbar />
+    <NuxtPage />
   </div>
 </template>
-
-<script>
-export default {
-  setup() {
-    const user = useUserSession();
-
-    return {
-      user,
-    };
-  },
-};
-</script>
